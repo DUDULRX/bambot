@@ -30,7 +30,7 @@ const DirectionButton: React.FC<DirectionButtonProps> = ({ isForward, onToggle }
       className={`px-4 py-2 text-lg border rounded ${isForward ? 'bg-blue-600 text-white' : 'bg-red-600 text-white'
         }`}
     >
-      {isForward ? 'correct' : 'reverse'}
+      {isForward ? 'forward' : 'reverse'}
     </button>
   );
 };
