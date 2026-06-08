@@ -79,7 +79,7 @@ export function updateJointStatesBySocket(
       if ("y" in data) coordinates.push({ axisId: 2, value: data.y ?? 0  });
       if ("z" in data) coordinates.push({ axisId: 3, value: data.z ?? 0  });
 
-      if (robotName === "roarm_m2") {
+      if (robotName === "roarm_m2" || robotName === "roarm_m2_ga") {
         if ("t" in data) joints.push({ servoId: 4, value: 3.1416-(data.t ?? 0)});
       }else if (robotName === "roarm_m3") {
         if ("t" in data) joints.push({ servoId: 4, value: data.t ?? 0  });

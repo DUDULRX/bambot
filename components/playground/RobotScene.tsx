@@ -43,10 +43,10 @@ export function RobotScene({
               .filter(
                 (
                   joint
-                ): joint is URDFJoint & {
-                  jointType: "revolute";
+                ): joint is URDFJoint & { 
+                  jointType: "revolute"; 
                 } =>
-                  joint.jointType === "revolute"
+                  joint.jointType === "revolute" && !("mimicJoint" in joint && joint.mimicJoint)
               )
               .map((joint) => ({
                 name: joint.name,
@@ -78,21 +78,23 @@ export function RobotScene({
     );
   }, [robotName, urdfUrl, setJointDetails]);
 
-  useFrame((state, delta) => {
-    if (robotRef.current && robotRef.current.joints) {
+      useFrame(() => {
+      const robot = robotRef.current;
+      if (!robot?.joints) return;
+
       jointStates.forEach((state) => {
-        const jointObj = robotRef.current!.joints[state.name];
-        if (jointObj) {
-          if (
-            state.realRadians !== undefined &&
-            typeof state.realRadians === "number"
-          ) {
-            jointObj.setJointValue(state.realRadians);
-          } 
-        }
+        if (typeof state.realRadians !== "number") return;
+
+        const joint = robot.joints[state.name];
+        if (!joint) return;
+
+        if ("mimicJoint" in joint && joint.mimicJoint) return;
+
+        robot.setJointValue(state.name, state.realRadians);
       });
-    }
-  });
+
+      robot.updateMatrixWorld(true);
+    });
 
   return (
     <>

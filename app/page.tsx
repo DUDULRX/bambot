@@ -16,6 +16,14 @@ export default function Home() {
     },     
     {
       id: 1,
+      name: "roarm_m2_ga",
+      image: "/roarm_m2.jpg",
+      playLink: "/play/roarm_m2_ga",
+      wikiLink:
+        "https://www.waveshare.com/wiki/RoArm-M2-S",
+    },      
+    {
+      id: 2,
       name: "roarm_m3",
       image: "/roarm_m3.jpg",
       playLink: "/play/roarm_m3",
